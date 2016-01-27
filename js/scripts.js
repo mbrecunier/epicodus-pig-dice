@@ -14,3 +14,11 @@ Dice.prototype.roll = function() {
     this.diceValue = this.dieOne + this.dieTwo;
   }
 }
+
+function Player(name) {
+  this.name = name;
+  this.turnScore = 0;
+  this.totalScore = 0;
+  this.isTurn = false;
+  this.dice = new Dice;
+}

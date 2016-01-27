@@ -30,3 +30,14 @@ describe('Dice', function() {
     }
   });
 });
+
+describe('Player', function() {
+  it("will create a Player object with the following properties", function() {
+    var testPlayer = new Player("Michelle");
+    expect(testPlayer.name).to.equal("Michelle");
+    expect(testPlayer.turnScore).to.equal(0);
+    expect(testPlayer.totalScore).to.equal(0);
+    expect(testPlayer.isTurn).to.equal(false);
+    expect(testPlayer.dice).to.eql(new Dice);
+  })
+});
