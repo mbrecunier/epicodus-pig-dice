@@ -9,5 +9,11 @@ Dice.prototype.roll = function() {
 }
 
 Dice.prototype.refreshScore = function() {
-  this.score = "pig out";
+  if (this.dieOne === 1 && this.dieTwo === 1) {
+    this.score = "pig out";
+  } else if (this.dieOne === 1 || this.dieTwo === 1) {
+    this.score = 0;
+  } else {
+    this.score = this.dieOne + this.dieTwo;
+  }
 }

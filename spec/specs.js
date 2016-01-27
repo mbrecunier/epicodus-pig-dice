@@ -23,5 +23,15 @@ describe('Dice', function() {
     testDice.dieTwo = 1;
     testDice.refreshScore();
     expect(testDice.score).to.equal('pig out');
+    testDice.dieOne = 1;
+    testDice.dieTwo = 4;
+    testDice.refreshScore();
+    expect(testDice.score).to.equal(0);
+    testDice.dieOne = 3;
+    testDice.dieTwo = 4;
+    testDice.refreshScore();
+    expect(testDice.score).to.equal(7);
   });
+
+  // it('')
 });
