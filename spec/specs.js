@@ -17,4 +17,11 @@ describe('Dice', function() {
     expect(testDice.dieTwo > 0 && testDice.dieTwo < 7).to.equal(true);
   });
 
+  it('has .refreshScore() method that calculates dice.score score based on dieOne and dieTwo', function() {
+    var testDice = new Dice();
+    testDice.dieOne = 1;
+    testDice.dieTwo = 1;
+    testDice.refreshScore();
+    expect(testDice.score).to.equal('pig out');
+  });
 });
