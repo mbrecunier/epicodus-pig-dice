@@ -98,5 +98,19 @@ describe('Game', function() {
     var testGame = new Game();
     testGame.setScoreToWin(300);
     expect(testGame.scoreToWin).to.equal(300);
-  })
+  });
+  it('will have a method to populate playerArray', function() {
+    var testGame = new Game();
+    testGame.addPlayer("Michelle");
+    testGame.addPlayer("Joe");
+    expect(testGame.playerArray[0].name).to.equal("Michelle");
+    expect(testGame.playerArray[1].name).to.equal("Joe");
+  });
+
+  // it('will have a method to check for winner', function() {
+  //   var testGame = new Game();
+  //
+  //   testGame.checkForWinner();
+  //
+  // });
 });
