@@ -60,6 +60,14 @@ Game.prototype.setScoreToWin = function(newScore) {
 Game.prototype.addPlayer = function(playerName) {
   this.playerArray.push(new Player(playerName));
 }
+Game.prototype.checkForWinner = function() {
+  for(var i=0; i<this.playerArray.length; i++) {
+    if(this.playerArray[i].totalScore>this.scoreToWin) {
+      return this.playerArray[i].name;
+    }
+  }
+  return false;
+}
 
 
 // ======================

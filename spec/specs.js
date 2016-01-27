@@ -107,10 +107,17 @@ describe('Game', function() {
     expect(testGame.playerArray[1].name).to.equal("Joe");
   });
 
-  // it('will have a method to check for winner', function() {
-  //   var testGame = new Game();
-  //
-  //   testGame.checkForWinner();
-  //
-  // });
+  it('will have a method to check for winner', function() {
+    var testGame = new Game();
+    testGame.addPlayer("Michelle");
+    testGame.addPlayer("Joe");
+    testGame.playerArray[0].totalScore = 99;
+    testGame.playerArray[1].totalScore = 101;
+    expect(testGame.checkForWinner()).to.equal("Joe");
+    testGame.playerArray[0].totalScore = 80;
+    testGame.playerArray[1].totalScore = 99;
+    expect(testGame.checkForWinner()).to.equal(false);
+
+
+  });
 });
