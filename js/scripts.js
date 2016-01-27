@@ -54,6 +54,9 @@ function Game() {
   this.scoreToWin = 100;
   this.activePlayer = 0;
 }
+Game.prototype.setScoreToWin = function(newScore) {
+  this.scoreToWin = newScore;
+}
 
 
 

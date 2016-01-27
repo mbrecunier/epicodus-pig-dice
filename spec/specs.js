@@ -94,4 +94,9 @@ describe('Game', function() {
     expect(testGame.scoreToWin).to.equal(100);
     expect(testGame.activePlayer).to.equal(0);
   });
+  it('will have a method to set a new winning score', function() {
+    var testGame = new Game();
+    testGame.setScoreToWin(300);
+    expect(testGame.scoreToWin).to.equal(300);
+  })
 });
