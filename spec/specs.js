@@ -92,7 +92,7 @@ describe('Game', function() {
     var testGame = new Game();
     expect(testGame.playerArray).to.eql([]);
     expect(testGame.scoreToWin).to.equal(100);
-    expect(testGame.activePlayer).to.equal(0);
+    expect(testGame.activePlayerIndex).to.equal(0);
   });
   it('will have a method to set a new winning score', function() {
     var testGame = new Game();
@@ -117,7 +117,20 @@ describe('Game', function() {
     testGame.playerArray[0].totalScore = 80;
     testGame.playerArray[1].totalScore = 99;
     expect(testGame.checkForWinner()).to.equal(false);
-
-
   });
+
+  it('will have a method that makes the next player the active player', function() {
+    var testGame = new Game();
+    testGame.addPlayer("Michelle");
+    testGame.addPlayer("Joe");
+    testGame.playerArray[0].isTurn = true;
+    testGame.nextPlayer();
+    expect(testGame.activePlayerIndex).to.equal(1);
+    expect(testGame.playerArray[0].isTurn).to.equal(false);
+    expect(testGame.playerArray[1].isTurn).to.equal(true);
+    testGame.nextPlayer();
+    expect(testGame.activePlayerIndex).to.equal(0);
+    expect(testGame.playerArray[0].isTurn).to.equal(true);
+    expect(testGame.playerArray[1].isTurn).to.equal(false);
+  })
 });

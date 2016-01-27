@@ -52,7 +52,7 @@ Player.prototype.chooseToEndTurn = function() {
 function Game() {
   this.playerArray = [];
   this.scoreToWin = 100;
-  this.activePlayer = 0;
+  this.activePlayerIndex = 0;
 }
 Game.prototype.setScoreToWin = function(newScore) {
   this.scoreToWin = newScore;
@@ -68,7 +68,20 @@ Game.prototype.checkForWinner = function() {
   }
   return false;
 }
-
+Game.prototype.nextPlayer = function() {
+  var oldPlayerIndex = this.activePlayerIndex;
+  // loops to front of player array if last player in array just finished thier turn
+  if (this.activePlayerIndex === this.playerArray.length-1) {
+    this.activePlayerIndex = 0;
+    this.playerArray[oldPlayerIndex].isTurn = false;
+    this.playerArray[0].isTurn = true;
+    return;
+  }
+  this.playerArray[oldPlayerIndex].isTurn = false;
+  this.activePlayerIndex++;
+  this.playerArray[this.activePlayerIndex].isTurn = true;
+  return;
+}
 
 // ======================
 //  User Interface Logic
