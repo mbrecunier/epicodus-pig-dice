@@ -132,5 +132,5 @@ describe('Game', function() {
     expect(testGame.activePlayerIndex).to.equal(0);
     expect(testGame.playerArray[0].isTurn).to.equal(true);
     expect(testGame.playerArray[1].isTurn).to.equal(false);
-  })
+  });
 });
