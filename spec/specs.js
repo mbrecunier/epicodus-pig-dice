@@ -39,5 +39,40 @@ describe('Player', function() {
     expect(testPlayer.totalScore).to.equal(0);
     expect(testPlayer.isTurn).to.equal(false);
     expect(testPlayer.dice).to.eql(new Dice);
-  })
+  });
+
+  it("has a method reactToDiceValue that updates player properties properly", function() {
+    var testPlayer = new Player("Michelle");
+
+    // check if method handles "pig out"
+    testPlayer.dice.diceValue = "pig out";
+    testPlayer.isTurn = true;
+    testPlayer.turnScore = 25;
+    testPlayer.totalScore = 102;
+    testPlayer.reactToDiceValue();
+    expect(testPlayer.isTurn).to.equal(false);
+    expect(testPlayer.turnScore).to.equal(0);
+    expect(testPlayer.totalScore).to.equal(0);
+
+    // check if method handles 0
+    testPlayer.dice.diceValue = 0;
+    testPlayer.isTurn = true;
+    testPlayer.turnScore = 25;
+    testPlayer.totalScore = 102;
+    testPlayer.reactToDiceValue();
+    expect(testPlayer.isTurn).to.equal(false);
+    expect(testPlayer.turnScore).to.equal(0);
+    expect(testPlayer.totalScore).to.equal(102);
+
+    // check if method handles 2 to 12
+    testPlayer.dice.diceValue = 5;
+    testPlayer.isTurn = true;
+    testPlayer.turnScore = 25;
+    testPlayer.totalScore = 102;
+    testPlayer.reactToDiceValue();
+    expect(testPlayer.isTurn).to.equal(true);
+    expect(testPlayer.turnScore).to.equal(30);
+    expect(testPlayer.totalScore).to.equal(102);
+  });
+
 });
