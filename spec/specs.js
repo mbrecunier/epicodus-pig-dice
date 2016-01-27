@@ -86,3 +86,12 @@ describe('Player', function() {
   });
 
 });
+
+describe('Game', function() {
+  it('will create new Game object with the following properties', function() {
+    var testGame = new Game();
+    expect(testGame.playerArray).to.eql([]);
+    expect(testGame.scoreToWin).to.equal(100);
+    expect(testGame.activePlayer).to.equal(0);
+  });
+});
