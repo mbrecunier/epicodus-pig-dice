@@ -74,5 +74,15 @@ describe('Player', function() {
     expect(testPlayer.turnScore).to.equal(30);
     expect(testPlayer.totalScore).to.equal(102);
   });
+  it('has a method chooseToEndTurn that will update scores and end turn', function() {
+    var testPlayer = new Player("Michelle");
+    testPlayer.turnScore = 20;
+    testPlayer.totalScore = 60;
+    testPlayer.isTurn = true;
+    testPlayer.chooseToEndTurn();
+    expect(testPlayer.turnScore).to.equal(0);
+    expect(testPlayer.totalScore).to.equal(80);
+    expect(testPlayer.isTurn).to.equal(false);
+  });
 
 });

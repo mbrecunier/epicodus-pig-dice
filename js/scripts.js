@@ -35,3 +35,9 @@ Player.prototype.reactToDiceValue = function() {
     this.turnScore += this.dice.diceValue;
   }
 }
+
+Player.prototype.chooseToEndTurn = function() {
+  this.totalScore += this.turnScore;
+  this.turnScore = 0;
+  this.isTurn = false;
+}
