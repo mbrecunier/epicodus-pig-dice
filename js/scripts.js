@@ -119,7 +119,7 @@ $(document).ready(function() {
 
     currentGame.playerArray[0].isTurn = true;
     // show and hide proper divs
-    nextField("#game-initializer", "#game-play");
+    nextField("#start", "#game-play");
     toggleActiveButtons(currentGame);
   });
 
@@ -152,7 +152,7 @@ $(document).ready(function() {
     $(jQueryPointer + " p.turn-score").text("Score This Turn: ");
     $(jQueryPointer + " p.total-score").text("Total Score: " + activePlayer.totalScore);
     if (currentGame.checkForWinner()) {
-      $('#game-result h2').text(currentGame.checkForWinner());
+      $('#game-result span').text(currentGame.checkForWinner());
       nextField("#game-play", "#game-result");
     }
 
@@ -171,7 +171,7 @@ $(document).ready(function() {
     $('#score-to-win').val(100);
 
     // show and hide proper divs
-    nextField("#game-play", "#game-initializer");
+    nextField("#game-play", "#start");
     $("#game-result").hide();
   });
 
