@@ -86,3 +86,32 @@ Game.prototype.nextPlayer = function() {
 // ======================
 //  User Interface Logic
 // ======================
+
+
+$(document).ready(function() {
+  var currentGame = new Game();
+
+  // event handler for game submit
+  $('#game-initializer').submit(function(event) {
+    event.preventDefault();
+
+    // initialize game content
+    currentGame.addPlayer($('#player1name').val());
+    currentGame.addPlayer($('#player2name').val());
+    currentGame.setScoreToWin($('#score-to-win').val());
+
+    alert(currentGame.playerArray[0].name);
+
+    // show and hide proper divs
+  });
+
+  // event handler for the reset button
+  $('#reset-game').click(function() {
+    currentGame = new Game();
+    // show and hide proper divs
+    // ?? clear the form fields
+    $('#player1name').val('');
+    $('#player2name').val('');
+    $('#score-to-win').val('');
+  });
+});
