@@ -59,6 +59,7 @@ Game.prototype.setScoreToWin = function(newScore) {
 }
 Game.prototype.addPlayer = function(playerName) {
   this.playerArray.push(new Player(playerName));
+  this.playerArray[this.playerArray.length-1].playerID = 'player' + this.playerArray.length;
 }
 Game.prototype.checkForWinner = function() {
   for(var i=0; i<this.playerArray.length; i++) {
@@ -100,9 +101,24 @@ $(document).ready(function() {
     currentGame.addPlayer($('#player2name').val());
     currentGame.setScoreToWin($('#score-to-win').val());
 
-    alert(currentGame.playerArray[0].name);
+    $('#player1>h3').text('Player 1: ' + currentGame.playerArray[0].name);
+    $('#player2>h3').text('Player 2: ' + currentGame.playerArray[1].name);
 
+    currentGame.playerArray[0].isTurn = true;
     // show and hide proper divs
+  });
+
+  // event handler for the roll button
+  $('button.roll').click(function() {
+    currentGame.playerArray[currentGame.activePlayerIndex].dice.roll();
+    currentGame.playerArray[currentGame.activePlayerIndex].reactToDiceValue();
+
+    var jQueryPointer = '#' + currentGame.playerArray[currentGame.activePlayerIndex].playerID;
+    // var activeRollScore = currentGame.playerArray[currentGame.activePlayerIndex].rollScore;
+    var activeTurnScore = currentGame.playerArray[currentGame.activePlayerIndex].turnScore;
+    // update display of scores
+    $(jQueryPointer + " p.turn-score").text(activeTurnScore);
+
   });
 
   // event handler for the reset button
@@ -114,4 +130,6 @@ $(document).ready(function() {
     $('#player2name').val('');
     $('#score-to-win').val('');
   });
+
+
 });
