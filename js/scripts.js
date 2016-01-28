@@ -140,6 +140,11 @@ Game.prototype.initializeGame = function() {
   this.toggleActiveButtons();
 }
 
+
+// ======================
+//  User Interface Logic
+// ======================
+
 var resetGame = function() {
   // clear the form fields
   $('#player1name').val('');
@@ -151,11 +156,6 @@ var resetGame = function() {
   $("#game-result").hide();
   $('#player1name').focus();
 }
-
-// ======================
-//  User Interface Logic
-// ======================
-
 var nextField = function(divHide, divShow) {
   $(divHide).hide();
   $(divShow).show();
@@ -168,6 +168,7 @@ $(document).ready(function() {
   // event handler for game submit
   $('#game-initializer').submit(function(event) {
     event.preventDefault();
+    $('p.total-score').text("Total Score: ");
     // initialize game content
     currentGame.initializeGame();
   });
