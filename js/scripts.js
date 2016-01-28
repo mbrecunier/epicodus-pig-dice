@@ -14,6 +14,8 @@ function Dice() {
 Dice.prototype.roll = function() {
   this.dieOne = Math.floor((Math.random() * 6) + 1);
   this.dieTwo = Math.floor((Math.random() * 6) + 1);
+  this.dieOneImgAddress = "img/" + this.dieOne + ".png";
+  this.dieTwoImgAddress = "img/" + this.dieTwo + ".png";
   if (this.dieOne === 1 && this.dieTwo === 1) {
     this.diceValue = "pig out";
   } else if (this.dieOne === 1 || this.dieTwo === 1) {
@@ -110,14 +112,15 @@ $(document).ready(function() {
 
   // event handler for the roll button
   $('button.roll').click(function() {
-    currentGame.playerArray[currentGame.activePlayerIndex].dice.roll();
-    currentGame.playerArray[currentGame.activePlayerIndex].reactToDiceValue();
+    var activePlayer = currentGame.playerArray[currentGame.activePlayerIndex];
+    activePlayer.dice.roll();
+    activePlayer.reactToDiceValue();
 
-    var jQueryPointer = '#' + currentGame.playerArray[currentGame.activePlayerIndex].playerID;
-    // var activeRollScore = currentGame.playerArray[currentGame.activePlayerIndex].rollScore;
-    var activeTurnScore = currentGame.playerArray[currentGame.activePlayerIndex].turnScore;
     // update display of scores
-    $(jQueryPointer + " p.turn-score").text(activeTurnScore);
+    var jQueryPointer = '#' + activePlayer.playerID;
+    $(jQueryPointer + " p.turn-score").text(activePlayer.turnScore);
+    $(jQueryPointer + " .die-pic1").attr("src", activePlayer.dice.dieOneImgAddress);
+    $(jQueryPointer + " .die-pic2").attr("src", activePlayer.dice.dieTwoImgAddress);
 
   });
 
