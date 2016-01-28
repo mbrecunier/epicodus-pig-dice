@@ -152,13 +152,14 @@ var resetGame = function() {
   $('#player1name').focus();
 }
 
+// ======================
+//  User Interface Logic
+// ======================
+
 var nextField = function(divHide, divShow) {
   $(divHide).hide();
   $(divShow).show();
 }
-// ======================
-//  User Interface Logic
-// ======================
 
 $(document).ready(function() {
   var currentGame = new Game();
