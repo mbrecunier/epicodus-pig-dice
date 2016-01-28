@@ -110,16 +110,55 @@ Game.prototype.toggleActiveButtons = function() {
   $('#' + this.playerArray[activePlayerIndex].playerID + ' button').prop('disabled', false);
   $('#' + this.playerArray[activePlayerIndex].playerID + ' button.roll').focus();
 }
+Game.prototype.endTurn = function() {
+  var activePlayer = this.playerArray[this.activePlayerIndex];
+  var jQueryPointer = '#' + activePlayer.playerID;
 
-// ======================
-//  User Interface Logic
-// ======================
+  activePlayer.chooseToEndTurn();
+  $(jQueryPointer + " p.roll-score").text("Current Roll: ");
+  $(jQueryPointer + " p.turn-score").text("Score This Turn: ");
+  $(jQueryPointer + " p.total-score").text("Total Score: " + activePlayer.totalScore);
+  if (this.checkForWinner()) {
+    $('#game-result span').text(this.checkForWinner());
+    nextField("#game-play", "#game-result");
+  }
+
+  this.nextPlayer();
+  this.toggleActiveButtons();
+}
+Game.prototype.initializeGame = function() {
+  this.addPlayer($('#player1name').val());
+  this.addPlayer($('#player2name').val());
+  this.setScoreToWin($('#score-to-win').val());
+
+  $('#player1>h3').text('Player 1: ' + this.playerArray[0].name);
+  $('#player2>h3').text('Player 2: ' + this.playerArray[1].name);
+
+  this.playerArray[0].isTurn = true;
+  // show and hide proper divs
+  nextField("#start", "#game-play");
+  this.toggleActiveButtons();
+}
+
+var resetGame = function() {
+  // clear the form fields
+  $('#player1name').val('');
+  $('#player2name').val('');
+  $('#score-to-win').val(100);
+
+  // show and hide proper divs
+  nextField("#game-play", "#start");
+  $("#game-result").hide();
+  $('#player1name').focus();
+}
 
 var nextField = function(divHide, divShow) {
   $(divHide).hide();
   $(divShow).show();
 }
-
+// ======================
+//  User Interface Logic
+// ======================
 
 $(document).ready(function() {
   var currentGame = new Game();
@@ -128,19 +167,8 @@ $(document).ready(function() {
   // event handler for game submit
   $('#game-initializer').submit(function(event) {
     event.preventDefault();
-
     // initialize game content
-    currentGame.addPlayer($('#player1name').val());
-    currentGame.addPlayer($('#player2name').val());
-    currentGame.setScoreToWin($('#score-to-win').val());
-
-    $('#player1>h3').text('Player 1: ' + currentGame.playerArray[0].name);
-    $('#player2>h3').text('Player 2: ' + currentGame.playerArray[1].name);
-
-    currentGame.playerArray[0].isTurn = true;
-    // show and hide proper divs
-    nextField("#start", "#game-play");
-    currentGame.toggleActiveButtons();
+    currentGame.initializeGame();
   });
 
   // event handler for the roll button
@@ -149,37 +177,12 @@ $(document).ready(function() {
   });
 
   $('button.end-turn').click(function() {
-    var activePlayer = currentGame.playerArray[currentGame.activePlayerIndex];
-    var jQueryPointer = '#' + activePlayer.playerID;
-
-    activePlayer.chooseToEndTurn();
-    $(jQueryPointer + " p.roll-score").text("Current Roll: ");
-    $(jQueryPointer + " p.turn-score").text("Score This Turn: ");
-    $(jQueryPointer + " p.total-score").text("Total Score: " + activePlayer.totalScore);
-    if (currentGame.checkForWinner()) {
-      $('#game-result span').text(currentGame.checkForWinner());
-      nextField("#game-play", "#game-result");
-    }
-
-    currentGame.nextPlayer();
-    currentGame.toggleActiveButtons();
-
-
+    currentGame.endTurn();
   });
-
   // event handler for the reset button
   $('#reset-game').click(function() {
     currentGame = new Game();
-    // ?? clear the form fields
-    $('#player1name').val('');
-    $('#player2name').val('');
-    $('#score-to-win').val(100);
-
-    // show and hide proper divs
-    nextField("#game-play", "#start");
-    $("#game-result").hide();
-    $('#player1name').focus();
+    resetGame();
   });
-
 
 });
