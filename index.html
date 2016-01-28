@@ -15,13 +15,13 @@
         <h1>Pig Dice</h1>
       </div>
       <div id="rules">
-        <p></p>
+        <p>Rules of play:</p>
         <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
+          <li>Two standard dice are rolled.</li>
+          <li>If neither die is a one, their sum is added to the turn total.</li>
+          <li>If a single one is rolled, the player loses thier turn score and is forced to end thier turn.</li>
+          <li>If two ones are rolled, the player loses thier total score and is forced to end thier turn.</li>
+          <li>The first player to reach 100 (or value of your choice) is the winner.</li>
         </ul>
         <button id="reset-game">Reset Game</button>
       </div>
@@ -33,7 +33,7 @@
           <label for="player1">Player Name</label>
           <input type="text" id="player1">
           <label for="player2">Player Name</label>
-          <input type="text" id="player2">
+          <input type="text" id="player2"><br>
           <label for="score-to-win">Score to Win</label>
           <input type="text" id="score-to-win">
           <button type="submit" id="start-game">Start Game</button>
@@ -54,7 +54,7 @@
             <p class="roll-score"></p>
             <p class="turn-score"></p>
             <p class="total-score"></p>
-            <button class="roll">Roll</button>
+            <button class="roll">Roll</button><br>
             <button class="end-turn">End Turn</button>
           </div>
 
@@ -71,7 +71,7 @@
             <p class="roll-score"></p>
             <p class="turn-score"></p>
             <p class="total-score"></p>
-            <button class="roll">Roll</button>
+            <button class="roll">Roll</button><br>
             <button class="end-turn">End Turn</button>
           </div>
         </div>
