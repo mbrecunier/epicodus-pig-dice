@@ -100,10 +100,12 @@ var toggleActiveButtons = function(currentGame) {
   $('#' + currentGame.playerArray[0].playerID + ' button').prop('disabled', true);
   $('#' + currentGame.playerArray[1].playerID + ' button').prop('disabled', true);
   $('#' + currentGame.playerArray[activePlayerIndex].playerID + ' button').prop('disabled', false);
+  $('#' + currentGame.playerArray[activePlayerIndex].playerID + ' button.roll').focus();
 }
 
 $(document).ready(function() {
   var currentGame = new Game();
+  $('#player1name').focus();
 
   // event handler for game submit
   $('#game-initializer').submit(function(event) {
@@ -138,6 +140,7 @@ $(document).ready(function() {
 
     if (activePlayer.dice.diceValue === "pig out" || activePlayer.dice.diceValue === 0) {
       currentGame.nextPlayer();
+      $(jQueryPointer + " p.total-score").text("Total Score: " + activePlayer.totalScore);
       toggleActiveButtons(currentGame);
     }
 
@@ -173,6 +176,7 @@ $(document).ready(function() {
     // show and hide proper divs
     nextField("#game-play", "#start");
     $("#game-result").hide();
+    $('#player1name').focus();
   });
 
 
