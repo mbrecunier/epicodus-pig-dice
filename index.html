@@ -10,6 +10,73 @@
     <title>Project Title</title>
   </head>
   <body>
+    <div class="container">
+      <div class="page-header">
+        <h1>Pig Dice</h1>
+      </div>
+      <div id="rules">
+        <p></p>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <button id="reset-game">Reset Game</button>
+      </div>
+      <div id="game-result">
+        <h2></h2>
+      </div>
+      <div id="start">
+        <form id="game-initializer">
+          <label for="player1">Player Name</label>
+          <input type="text" id="player1">
+          <label for="player2">Player Name</label>
+          <input type="text" id="player2">
+          <label for="score-to-win">Score to Win</label>
+          <input type="text" id="score-to-win">
+          <button type="submit" id="start-game">Start Game</button>
+        </form>
+      </div>
+      <div id="game-play">
+        <div class="row">
+          <div id="player1" class="col-sm-6">
+            <h3></h3>
+            <div class="row die-pics">
+              <div class="col-sm-6 die-pic1">
+                <img src='#' alt="picture of die face">
+              </div>
+              <div class="col-sm-6 die-pic2">
+                <img src='#' alt="picture of die face">
+              </div>
+            </div>
+            <p class="roll-score"></p>
+            <p class="turn-score"></p>
+            <p class="total-score"></p>
+            <button class="roll">Roll</button>
+            <button class="end-turn">End Turn</button>
+          </div>
 
+          <div id="player2" class="col-sm-6">
+            <h3></h3>
+            <div class="row die-pics">
+              <div class="col-sm-6 die-pic1">
+                <img src='#' alt="picture of die face">
+              </div>
+              <div class="col-sm-6 die-pic2">
+                <img src='#' alt="picture of die face">
+              </div>
+            </div>
+            <p class="roll-score"></p>
+            <p class="turn-score"></p>
+            <p class="total-score"></p>
+            <button class="roll">Roll</button>
+            <button class="end-turn">End Turn</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </body>
 </html>
