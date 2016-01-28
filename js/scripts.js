@@ -94,6 +94,14 @@ var nextField = function(divHide, divShow) {
   $(divShow).show();
 }
 
+var toggleActiveButtons = function(currentGame) {
+  var activePlayerIndex = currentGame.activePlayerIndex;
+
+  $('#' + currentGame.playerArray[0].playerID + ' button').prop('disabled', true);
+  $('#' + currentGame.playerArray[1].playerID + ' button').prop('disabled', true);
+  $('#' + currentGame.playerArray[activePlayerIndex].playerID + ' button').prop('disabled', false);
+}
+
 $(document).ready(function() {
   var currentGame = new Game();
 
@@ -112,6 +120,7 @@ $(document).ready(function() {
     currentGame.playerArray[0].isTurn = true;
     // show and hide proper divs
     nextField("#game-initializer", "#game-play");
+    toggleActiveButtons(currentGame);
   });
 
   // event handler for the roll button
@@ -129,6 +138,7 @@ $(document).ready(function() {
 
     if (activePlayer.dice.diceValue === "pig out" || activePlayer.dice.diceValue === 0) {
       currentGame.nextPlayer();
+      toggleActiveButtons(currentGame);
     }
 
   });
@@ -147,6 +157,7 @@ $(document).ready(function() {
     }
 
     currentGame.nextPlayer();
+    toggleActiveButtons(currentGame);
 
 
   });
