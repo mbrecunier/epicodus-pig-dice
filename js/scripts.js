@@ -89,6 +89,10 @@ Game.prototype.nextPlayer = function() {
 //  User Interface Logic
 // ======================
 
+var nextField = function(divHide, divShow) {
+  $(divHide).hide();
+  $(divShow).show();
+}
 
 $(document).ready(function() {
   var currentGame = new Game();
@@ -107,6 +111,7 @@ $(document).ready(function() {
 
     currentGame.playerArray[0].isTurn = true;
     // show and hide proper divs
+    nextField("#game-initializer", "#game-play");
   });
 
   // event handler for the roll button
@@ -138,6 +143,7 @@ $(document).ready(function() {
     $(jQueryPointer + " p.total-score").text("Total Score: " + activePlayer.totalScore);
     if (currentGame.checkForWinner()) {
       $('#game-result h2').text(currentGame.checkForWinner());
+      nextField("#game-play", "#game-result");
     }
 
     currentGame.nextPlayer();
@@ -148,11 +154,14 @@ $(document).ready(function() {
   // event handler for the reset button
   $('#reset-game').click(function() {
     currentGame = new Game();
-    // show and hide proper divs
     // ?? clear the form fields
     $('#player1name').val('');
     $('#player2name').val('');
-    $('#score-to-win').val('');
+    $('#score-to-win').val(100);
+
+    // show and hide proper divs
+    nextField("#game-play", "#game-initializer");
+    $("#game-result").hide();
   });
 
 
