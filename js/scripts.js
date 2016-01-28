@@ -84,6 +84,32 @@ Game.prototype.nextPlayer = function() {
   this.playerArray[this.activePlayerIndex].isTurn = true;
   return;
 }
+Game.prototype.roll = function() {
+  var activePlayer = this.playerArray[this.activePlayerIndex];
+  activePlayer.dice.roll();
+  activePlayer.reactToDiceValue();
+
+  // update display of scores
+  var jQueryPointer = '#' + activePlayer.playerID;
+  $(jQueryPointer + " p.roll-score").text("Current Roll: " + activePlayer.dice.diceValue);
+  $(jQueryPointer + " p.turn-score").text("Score This Turn: " + activePlayer.turnScore);
+  $(jQueryPointer + " .die-pic1").attr("src", activePlayer.dice.dieOneImgAddress);
+  $(jQueryPointer + " .die-pic2").attr("src", activePlayer.dice.dieTwoImgAddress);
+
+  if (activePlayer.dice.diceValue === "pig out" || activePlayer.dice.diceValue === 0) {
+    this.nextPlayer();
+    $(jQueryPointer + " p.total-score").text("Total Score: " + activePlayer.totalScore);
+    this.toggleActiveButtons();
+  }
+}
+Game.prototype.toggleActiveButtons = function() {
+  var activePlayerIndex = this.activePlayerIndex;
+
+  $('#' + this.playerArray[0].playerID + ' button').prop('disabled', true);
+  $('#' + this.playerArray[1].playerID + ' button').prop('disabled', true);
+  $('#' + this.playerArray[activePlayerIndex].playerID + ' button').prop('disabled', false);
+  $('#' + this.playerArray[activePlayerIndex].playerID + ' button.roll').focus();
+}
 
 // ======================
 //  User Interface Logic
@@ -94,14 +120,6 @@ var nextField = function(divHide, divShow) {
   $(divShow).show();
 }
 
-var toggleActiveButtons = function(currentGame) {
-  var activePlayerIndex = currentGame.activePlayerIndex;
-
-  $('#' + currentGame.playerArray[0].playerID + ' button').prop('disabled', true);
-  $('#' + currentGame.playerArray[1].playerID + ' button').prop('disabled', true);
-  $('#' + currentGame.playerArray[activePlayerIndex].playerID + ' button').prop('disabled', false);
-  $('#' + currentGame.playerArray[activePlayerIndex].playerID + ' button.roll').focus();
-}
 
 $(document).ready(function() {
   var currentGame = new Game();
@@ -122,28 +140,12 @@ $(document).ready(function() {
     currentGame.playerArray[0].isTurn = true;
     // show and hide proper divs
     nextField("#start", "#game-play");
-    toggleActiveButtons(currentGame);
+    currentGame.toggleActiveButtons();
   });
 
   // event handler for the roll button
   $('button.roll').click(function() {
-    var activePlayer = currentGame.playerArray[currentGame.activePlayerIndex];
-    activePlayer.dice.roll();
-    activePlayer.reactToDiceValue();
-
-    // update display of scores
-    var jQueryPointer = '#' + activePlayer.playerID;
-    $(jQueryPointer + " p.roll-score").text("Current Roll: " + activePlayer.dice.diceValue);
-    $(jQueryPointer + " p.turn-score").text("Score This Turn: " + activePlayer.turnScore);
-    $(jQueryPointer + " .die-pic1").attr("src", activePlayer.dice.dieOneImgAddress);
-    $(jQueryPointer + " .die-pic2").attr("src", activePlayer.dice.dieTwoImgAddress);
-
-    if (activePlayer.dice.diceValue === "pig out" || activePlayer.dice.diceValue === 0) {
-      currentGame.nextPlayer();
-      $(jQueryPointer + " p.total-score").text("Total Score: " + activePlayer.totalScore);
-      toggleActiveButtons(currentGame);
-    }
-
+    currentGame.roll();
   });
 
   $('button.end-turn').click(function() {
@@ -160,7 +162,7 @@ $(document).ready(function() {
     }
 
     currentGame.nextPlayer();
-    toggleActiveButtons(currentGame);
+    currentGame.toggleActiveButtons();
 
 
   });
