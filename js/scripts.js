@@ -48,7 +48,6 @@ Player.prototype.reactToDiceValue = function() {
 Player.prototype.chooseToEndTurn = function() {
   this.totalScore += this.turnScore;
   this.turnScore = 0;
-  this.isTurn = false;
 }
 
 function Game() {
@@ -65,7 +64,7 @@ Game.prototype.addPlayer = function(playerName) {
 }
 Game.prototype.checkForWinner = function() {
   for(var i=0; i<this.playerArray.length; i++) {
-    if(this.playerArray[i].totalScore>this.scoreToWin) {
+    if(this.playerArray[i].totalScore>=this.scoreToWin) {
       return this.playerArray[i].name;
     }
   }
@@ -118,9 +117,31 @@ $(document).ready(function() {
 
     // update display of scores
     var jQueryPointer = '#' + activePlayer.playerID;
-    $(jQueryPointer + " p.turn-score").text(activePlayer.turnScore);
+    $(jQueryPointer + " p.roll-score").text("Current Roll: " + activePlayer.dice.diceValue);
+    $(jQueryPointer + " p.turn-score").text("Score This Turn: " + activePlayer.turnScore);
     $(jQueryPointer + " .die-pic1").attr("src", activePlayer.dice.dieOneImgAddress);
     $(jQueryPointer + " .die-pic2").attr("src", activePlayer.dice.dieTwoImgAddress);
+
+    if (activePlayer.dice.diceValue === "pig out" || activePlayer.dice.diceValue === 0) {
+      currentGame.nextPlayer();
+    }
+
+  });
+
+  $('button.end-turn').click(function() {
+    var activePlayer = currentGame.playerArray[currentGame.activePlayerIndex];
+    var jQueryPointer = '#' + activePlayer.playerID;
+
+    activePlayer.chooseToEndTurn();
+    $(jQueryPointer + " p.roll-score").text("Current Roll: ");
+    $(jQueryPointer + " p.turn-score").text("Score This Turn: ");
+    $(jQueryPointer + " p.total-score").text("Total Score: " + activePlayer.totalScore);
+    if (currentGame.checkForWinner()) {
+      $('#game-result h2').text(currentGame.checkForWinner());
+    }
+
+    currentGame.nextPlayer();
+
 
   });
 
