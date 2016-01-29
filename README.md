@@ -8,15 +8,13 @@
 
 Create players and take turns rolling two dice. If both dice show 1, your turn ends and you lose your entire score. If only one die shows 1, you turn ends and you won't earn any points for that round. If neither die shows 1, add the two die values to your score. You can continue rolling until you roll a 1 or choose to end your turn.
 
-The current version of this project includes only the backend 'business logic'.
-
 ## Setup/Installation Requirements
 
 Fork and clone it.
 
 ## Known Bugs
 
-No known bugs.
+The total score may not always display correctly after a game reset. Most likely completely fixed. No other known bugs.
 
 ## Support and contact details
 

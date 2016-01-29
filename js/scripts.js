@@ -179,10 +179,12 @@ $(document).ready(function() {
   });
 
   $('button.end-turn').click(function() {
+    // $('p.total-score').text("Total Score: ");
     currentGame.endTurn();
   });
   // event handler for the reset button
   $('#reset-game').click(function() {
+    $('p.total-score').text("Total Score: ");
     currentGame = new Game();
     resetGame();
   });
